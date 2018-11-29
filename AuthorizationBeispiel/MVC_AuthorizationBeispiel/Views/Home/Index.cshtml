@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Continent>
+@{
+    ViewData["Title"] = "Continents";
+}
+
+<h2>Continents</h2>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Area</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var continent in Model)
+    {
+      <tr>
+        <td>@continent.Name</td>
+        <td>@continent.Area</td>
+      </tr>
+    }
+  </tbody>
+</table>

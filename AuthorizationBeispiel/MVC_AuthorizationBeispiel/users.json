@@ -1,0 +1,11 @@
+{
+  "Users": [
+    {
+      "Name": "Jo",
+      "Roles": [ "Administrator", "User" ],
+      "DateOfBirth": "1.1.1960",
+      "ContinentsAllowedToEdit": [ "europe, asia" ]
+    }
+  ]
+
+}
