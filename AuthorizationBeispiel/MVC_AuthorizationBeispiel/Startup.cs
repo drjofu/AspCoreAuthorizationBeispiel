@@ -55,10 +55,12 @@ namespace MVC_AuthorizationBeispiel
       {
         options.AddPolicy("AdministratorOnly", policy => policy.RequireRole("Admin"));
         options.AddPolicy("HasChildrenSet", policy => policy.RequireClaim("HasChildren", "True"));
-        options.AddPolicy("BornBefore1970", policy => policy.Requirements.Add(new BornBefore1970Requirement()));
+        options.AddPolicy("BornBefore1970", policy => policy.Requirements.Add(new IsExperiencedRequirement()));
       });
-
+      
       services.AddSingleton<IAuthorizationHandler, BornBefore1970Handler>();
+      services.AddSingleton<IAuthorizationHandler, IsExpertHandler>();
+      services.AddSingleton<IAuthorizationHandler, RestrictToContinentHandler>();
     }
 
 

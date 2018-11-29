@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace MVC_AuthorizationBeispiel.Models
 {
-  public class BornBefore1970Requirement : IAuthorizationRequirement { }
-  public class BornBefore1970Handler : AuthorizationHandler<BornBefore1970Requirement>
+  public class IsExperiencedRequirement : IAuthorizationRequirement { }
+  public class BornBefore1970Handler : AuthorizationHandler<IsExperiencedRequirement>
   {
-    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, BornBefore1970Requirement requirement)
+    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, IsExperiencedRequirement requirement)
     {
       if (context.User.HasClaim(c => c.Type == ClaimTypes.DateOfBirth))
       {

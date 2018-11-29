@@ -22,7 +22,24 @@ namespace Mondial
         Id = xContinent.Attribute("id").Value,
         Name = xContinent.Element("name").Value,
         Area = (int)xContinent.Element("area")
-      });
+      })
+      .ToList();
+    }
+
+    public IEnumerable<Country>GetCountriesByContinentId(string continentId)
+    {
+      return XDocument.Load(path)
+        .Root
+        .Elements("country")
+        .Where(xCountry => xCountry.Element("encompassed").Attribute("continent").Value == continentId)
+        .Select(xCountry => new Country
+        {
+          Name=xCountry.Element("name").Value,
+          CarCode=xCountry.Attribute("car_code").Value,
+          Area=(double)xCountry.Attribute("area"),
+          Government=xCountry.Element("government")?.Value,
+          Population=(int)xCountry.Element("population")
+        }).ToList();
     }
   }
 }

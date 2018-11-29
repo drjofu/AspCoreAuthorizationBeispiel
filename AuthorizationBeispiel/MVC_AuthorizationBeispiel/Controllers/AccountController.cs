@@ -47,6 +47,10 @@ namespace MVC_AuthorizationBeispiel.Controllers
 
       string dob = user.DateOfBirth.ToString(CultureInfo.InvariantCulture);
       claims.Add(new Claim(ClaimTypes.DateOfBirth, dob, ClaimValueTypes.Date, Issuer));
+      claims.Add(new Claim("IsExpert", user.IsExpert.ToString()));
+
+      if (user.RestrictToContinent != null)
+        claims.Add(new Claim("RestrictToContinent", user.RestrictToContinent));
 
       var userIdentity = new ClaimsIdentity("SuperSecureLogin");
       userIdentity.AddClaims(claims);

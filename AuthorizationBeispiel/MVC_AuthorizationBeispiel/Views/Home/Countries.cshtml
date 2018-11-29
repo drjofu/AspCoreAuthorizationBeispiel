@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Country>
+
+@{
+    ViewData["Title"] = "Countries";
+}
+
+<h2>Countries</h2>
+
+<table class="table table-striped">
+  @foreach (var country in Model)
+  {
+    <tr>
+      <td>@country.Name</td>
+      <td>@country.CarCode</td>
+    </tr>
+  }
+</table>

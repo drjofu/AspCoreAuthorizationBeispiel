@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mondial;
 using MVC_AuthorizationBeispiel.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MVC_AuthorizationBeispiel.Controllers
 {
@@ -20,40 +15,29 @@ namespace MVC_AuthorizationBeispiel.Controllers
   public class HomeController : Controller
   {
     private readonly World world;
+    private readonly IAuthorizationService authorizationService;
 
-    public HomeController(World world)
+    public HomeController(World world, IAuthorizationService authorizationService)
     {
       this.world = world;
+      this.authorizationService = authorizationService;
     }
 
-    public async Task< IActionResult> Index()
+    public IActionResult Index()
     {
       return View(world.GetContinents());
     }
 
-    public IActionResult About()
+
+    public async Task<IActionResult> Countries(string continentId)
     {
-      ViewData["Message"] = "Your application description page.";
+      var continent = world.GetContinents().FirstOrDefault(c => c.Id == continentId);
 
-      return View();
-    }
+      var authorizationResult = await authorizationService.AuthorizeAsync(User, continent, new RestrictToContinentRequirement());
+      if (authorizationResult.Succeeded)
+        return View(world.GetCountriesByContinentId(continentId));
 
-    public IActionResult Contact()
-    {
-      ViewData["Message"] = "Your contact page.";
-
-      return View();
-    }
-
-    public IActionResult Privacy()
-    {
-      return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-      return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+      return new ForbidResult();
     }
   }
 }
