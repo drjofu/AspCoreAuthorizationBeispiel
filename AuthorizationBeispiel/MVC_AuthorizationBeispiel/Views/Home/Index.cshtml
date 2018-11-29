@@ -1,10 +1,11 @@
-﻿@model IEnumerable<Continent>
-@inject Microsoft.AspNetCore.Authorization.IAuthorizationService AuthorizationService
+﻿@using Microsoft.AspNetCore.Authorization
+@model IEnumerable<Continent>
+@inject IAuthorizationService AuthorizationService
 
 @{
   ViewData["Title"] = "Continents";
 
-  var requirements =new RestrictToContinentRequirement[] { new RestrictToContinentRequirement() };
+  var requirement = new RestrictToContinentRequirement();
 }
 
 <h2>Continents</h2>
@@ -26,7 +27,7 @@
         <td>@continent.Area</td>
         <td>
           @{
-            var authResult = await AuthorizationService.AuthorizeAsync(User, continent, requirements);
+            var authResult = await AuthorizationService.AuthorizeAsync(User, continent, requirement);
             if (authResult.Succeeded)
             {
               <a asp-action="countries" asp-route-continentId="@continent.Id">Countries</a>
