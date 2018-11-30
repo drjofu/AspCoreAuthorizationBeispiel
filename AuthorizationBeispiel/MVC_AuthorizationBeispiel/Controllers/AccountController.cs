@@ -31,7 +31,7 @@ namespace MVC_AuthorizationBeispiel.Controllers
     [HttpPost]
     public async Task<IActionResult> Login(LoginModel loginModel)
     {
-      var user = userRepo.Users.FirstOrDefault(u => u.Name.ToLower() == loginModel.Username.ToLower());
+      var user = userRepo.GetUserByName(loginModel.Username);
       if (user == null) return View();
 
       const string Issuer = "https://mondial.com";

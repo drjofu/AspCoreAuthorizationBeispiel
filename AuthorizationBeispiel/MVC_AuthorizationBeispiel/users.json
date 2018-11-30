@@ -1,10 +1,23 @@
 {
-  "Users": [
+  "users": [
     {
-      "Name": "Jo",
-      "Roles": [ "Administrator", "User" ],
-      "DateOfBirth": "1.1.1960",
-      "ContinentsAllowedToEdit": [ "europe, asia" ]
+      "name": "Peter",
+      "Roles": [ "Admin", "Guest" ],
+      "DateOfBirth": "1/21/1950",
+      "hasChildren": false
+    },
+    {
+      "name": "Paul",
+      "roles": [ "Guest" ],
+      "dateOfBirth": "4/2/1960",
+      "hasChildren": true
+    },
+    {
+      "name": "Mary",
+      "roles": [ "Admin" ],
+      "dateOfBirth": "12/15/1970",
+      "isExpert": true,
+      "restrictToContinent": "europe"
     }
   ]
 
